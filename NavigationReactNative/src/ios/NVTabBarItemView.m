@@ -23,6 +23,7 @@
     if (self = [super init]) {
         _bridge = bridge;
         self.tab = [[UITabBarItem alloc] init];
+        self.navigationController = [[UINavigationController alloc] init];
     }
     return self;
 }

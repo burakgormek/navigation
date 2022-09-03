@@ -3,6 +3,7 @@ import { requireNativeComponent, Image, Platform, StyleSheet } from 'react-nativ
 import BackButton from './BackButton';
 import BackHandlerContext from './BackHandlerContext';
 import createBackHandler from './createBackHandler';
+import Freeze from './Freeze';
 
 class TabBarItem extends React.Component<any> {
     private backHandler: any;
@@ -15,7 +16,7 @@ class TabBarItem extends React.Component<any> {
         return this.props.selected && this.backHandler.handleBack();
     }
     render() {
-        var {onPress, children, image, systemItem, badge, index, ...props} = this.props;
+        var {onPress, children, image, systemItem, badge, index, selected, ...props} = this.props;
         image = typeof image === 'string' ? (Platform.OS === 'ios' ? null : {uri: image}) : image;
         return (
             <NVTabBarItem
@@ -31,7 +32,9 @@ class TabBarItem extends React.Component<any> {
                 }}>
                 <BackButton onPress={this.handleBack} />
                 <BackHandlerContext.Provider value={this.backHandler}>
-                    {children}
+                    <Freeze enabled={!selected}>
+                        {children}
+                    </Freeze>
                 </BackHandlerContext.Provider>
             </NVTabBarItem>
         );

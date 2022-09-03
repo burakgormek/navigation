@@ -66,6 +66,11 @@
 
 - (void)didSetProps:(NSArray<NSString *> *)changedProps
 {
+    NSMutableArray *controllers = [[NSMutableArray alloc] init];
+    for(int i = 0; i < self.reactSubviews.count; i++) {
+        [controllers insertObject:[(NVTabBarItemView *) [self.reactSubviews objectAtIndex:i] navigationController] atIndex:i];
+    }
+    [_tabBarController setViewControllers:controllers];
     if (_tabBarController.selectedIndex == NSNotFound) {
         _tabBarController.selectedIndex = 0;
     }
