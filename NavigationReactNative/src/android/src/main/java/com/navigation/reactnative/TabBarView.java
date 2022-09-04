@@ -104,10 +104,19 @@ public class TabBarView extends ViewGroup {
         TabNavigationView tabNavigation = getTabNavigation();
         if (tabNavigation != null)
             tabNavigation.tabSelected(index);
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(getId(), tabFragments.get(index));
-        transaction.commitNowAllowingStateLoss();
+        post(test);
     }
+
+    private final Runnable test = new Runnable() {
+        @Override
+        public void run() {
+            Fragment f = fragmentManager.findFragmentByTag("test");
+            if (f != null) fragmentManager.beginTransaction().remove(f).commitNowAllowingStateLoss();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(getId(), tabFragments.get(selectedIndex), "test");
+            transaction.commitNowAllowingStateLoss();
+        }
+    };
 
     void scrollToTop() {
         if (!scrollsToTop)
