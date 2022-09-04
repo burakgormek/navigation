@@ -99,7 +99,7 @@ public class TabBarItemManager extends ViewGroupManager<TabBarItemView> {
 
     @Override
     public void addView(TabBarItemView parent, View child, int index) {
-        parent.content.add(index, child);
+        parent.content.add(index, (TabBarItemContentView) child);
     }
 
     @Override

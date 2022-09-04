@@ -33,7 +33,18 @@ class TabBarItem extends React.Component<any> {
                 <BackButton onPress={this.handleBack} />
                 <BackHandlerContext.Provider value={this.backHandler}>
                     <Freeze enabled={!selected}>
-                        {children}
+                        <NVTabBarItemContent
+                            ref={(ref: any) => {
+                                if (!!React.Suspense && ref?.viewConfig?.validAttributes?.style) {
+                                    ref.viewConfig.validAttributes.style = {
+                                        ...ref.viewConfig.validAttributes.style,
+                                        display: false
+                                    };
+                                }
+                            }}
+                            style={{flex: 1}}>
+                            {children}
+                        </NVTabBarItemContent>
                     </Freeze>
                 </BackHandlerContext.Provider>
             </NVTabBarItem>
@@ -42,6 +53,7 @@ class TabBarItem extends React.Component<any> {
 };
 
 var NVTabBarItem = global.nativeFabricUIManager ? require('./TabBarItemNativeComponent').default : requireNativeComponent('NVTabBarItem');
+var NVTabBarItemContent = global.nativeFabricUIManager ? require('./TabBarItemNativeComponent').default : requireNativeComponent('NVTabBarItemContent');
 
 const styles = StyleSheet.create({
     tabBarItem: {
