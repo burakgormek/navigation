@@ -85,6 +85,7 @@ public class TabBarPagerView extends ViewPager {
                 getAdapter().tabFragments.get(i).tabBarItem.setTabView(tabView, i);
             }
         }
+        getAdapter().notifyDataSetChanged();
     }
 
     private TabLayoutView getTabLayout() {
@@ -222,7 +223,8 @@ public class TabBarPagerView extends ViewPager {
         @Override
         public int getItemPosition(@NonNull Object object) {
             for(int i = 0; i < tabFragments.size(); i++) {
-                if (tabFragments.get(i) == object)
+                TabFragment tabFragment = (TabFragment) tabFragments.get(i);
+                if (tabFragment == object && tabFragment.view != null)
                     return i;
             }
             return POSITION_NONE;
