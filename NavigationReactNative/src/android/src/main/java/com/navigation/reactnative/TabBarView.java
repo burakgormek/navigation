@@ -104,8 +104,9 @@ public class TabBarView extends ViewGroup {
         TabNavigationView tabNavigation = getTabNavigation();
         if (tabNavigation != null)
             tabNavigation.tabSelected(index);
-        Fragment tabFragment = fragmentManager.findFragmentByTag("tab");
-        if (tabFragment != null) fragmentManager.beginTransaction().remove(tabFragment).commitNowAllowingStateLoss();
+        TabFragment tabFragment = (TabFragment) fragmentManager.findFragmentByTag("tab");
+        if (tabFragment != null && tabFragment.view == null)
+            fragmentManager.beginTransaction().remove(tabFragment).commitNowAllowingStateLoss();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(getId(), tabFragments.get(selectedIndex), "tab");
         transaction.commitNowAllowingStateLoss();
