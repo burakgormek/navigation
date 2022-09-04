@@ -223,7 +223,7 @@ public class TabBarPagerView extends ViewPager {
         @Override
         public int getItemPosition(@NonNull Object object) {
             for(int i = 0; i < tabFragments.size(); i++) {
-                TabFragment tabFragment = (TabFragment) tabFragments.get(i);
+                TabFragment tabFragment = tabFragments.get(i);
                 if (tabFragment == object && tabFragment.view != null)
                     return i;
             }
