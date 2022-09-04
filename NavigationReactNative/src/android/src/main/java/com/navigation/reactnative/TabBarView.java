@@ -112,7 +112,7 @@ public class TabBarView extends ViewGroup {
     void scrollToTop() {
         if (!scrollsToTop)
             return;
-        View tabBarItem = tabFragments.get(selectedTab).tabBarItem.content.get(0);
+        View tabBarItem = tabFragments.get(selectedTab).tabBarItem.content.get(0).content;
         if (tabBarItem instanceof ViewGroup) {
             ViewGroup viewGroup = (ViewGroup) tabBarItem;
             for(int i = 0; i < viewGroup.getChildCount(); i++) {
